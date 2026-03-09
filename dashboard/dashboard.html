@@ -62,7 +62,7 @@
                     </div>
                 </div>
 
-                <div class="card dashboard-card theme-warning">
+                <div class="card dashboard-card theme-warning" onclick="window.location.href='../products/products.html?filter=low-stock'">
                     <div class="card-title">สินค้าใกล้หมด</div>
                     <div class="card-main-number" id="dash-low-stock">0</div>
                     <div class="card-subtitle">รายการ</div>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                <div class="card dashboard-card theme-orange">
+                <div class="card dashboard-card theme-orange" onclick="window.location.href='../products/products.html?filter=expiring'">
                     <div class="card-title">ใกล้หมดอายุ</div>
                     <div class="card-main-number" id="dash-expiring">0</div>
                     <div class="card-subtitle">รายการ</div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <div class="card dashboard-card theme-danger">
+                <div class="card dashboard-card theme-danger" onclick="window.location.href='../products/products.html?filter=expired'">
                     <div class="card-title">สินค้าหมดอายุ</div>
                     <div class="card-main-number" id="dash-expired">0</div>
                     <div class="card-subtitle">รายการ</div>
@@ -133,4 +133,5 @@
     <script src="../shared/global.js"></script>
     <script src="dashboard.js"></script>
 </body>
+
 </html>
