@@ -54,6 +54,9 @@
                 <button class="pill" onclick="filterCategory('ของใช้ทั่วไป', this)">ของใช้ทั่วไป</button>
                 <button class="pill" onclick="filterCategory('เครื่องเขียน', this)">เครื่องเขียน</button>
                 <button class="pill" onclick="filterCategory('เครื่องสำอาง', this)">เครื่องสำอาง</button>
+                <button class="pill" id="pill-low-stock" onclick="filterSpecial('low-stock', this)" style="border-color: #fbc02d; color: #fbc02d;">⚠️ ใกล้หมด</button>
+                <button class="pill" id="pill-expiring" onclick="filterSpecial('expiring', this)" style="border-color: #f57c00; color: #f57c00;">⏳ ใกล้หมดอายุ</button>
+                <button class="pill" id="pill-expired" onclick="filterSpecial('expired', this)" style="border-color: #d32f2f; color: #d32f2f;">❌ หมดอายุ</button>
             </div>
 
             <div class="product-grid" id="product-grid-container"></div>
@@ -93,4 +96,5 @@
     <script src="../shared/global.js"></script>
     <script src="products.js"></script>
 </body>
+
 </html>
