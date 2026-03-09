@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>สินค้าทั้งหมด - Smart & Stock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/global.css">
+    <link rel="stylesheet" href="products.css">
+</head>
+<body>
+
+    <div id="sidebar">
+        <div class="sidebar-top"><div class="sidebar-brand">📦 SMART & STOCK</div></div>
+        
+        <ul class="sidebar-menu">
+            <li class="menu-item" onclick="window.location.href='../dashboard/dashboard.html'">หน้าหลัก (Dashboard)</li>
+            <li class="menu-item" onclick="window.location.href='../sales/sales.html'">ยอดขาย (Sales)</li>
+            <li class="menu-item" onclick="window.location.href='../movements/movements.html'">ความเคลื่อนไหวสต็อก</li>
+        </ul>
+        
+        <div class="sidebar-toggle" onclick="toggleSidebar()">&lt;</div>
+        
+        <div class="sidebar-profile" onclick="logout()">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <span class="name" id="sidebar-username">Admin</span>
+                <span class="role">ออกจากระบบ</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        <div class="app-section">
+            
+            <div class="dash-header" style="background: linear-gradient(90deg, #ffb6c1 0%, #ffc0cb 100%);">
+                <div>
+                    <h2>สินค้าทั้งหมด (<span id="header-total-count">0</span>)</h2>
+                    <p>คลิกที่การ์ดเพื่อดูรายละเอียดสินค้า</p>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="search-bar-container">
+                        <svg class="search-icon-svg" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="search-product" class="search-bar" placeholder="ค้นหาชื่อ หรือ รหัสสินค้า..." oninput="handleSearch()">
+                    </div>
+                    <button class="btn" style="background-color: #555; width:auto;" onclick="window.location.href='../dashboard/dashboard.html'">กลับหน้าหลัก</button>
+                </div>
+            </div>
+
+            <div class="filter-pills" id="category-filters">
+                <button class="pill active" onclick="filterCategory('ทั้งหมด', this)">ทั้งหมด</button>
+                <button class="pill" onclick="filterCategory('ของใช้ทั่วไป', this)">ของใช้ทั่วไป</button>
+                <button class="pill" onclick="filterCategory('เครื่องเขียน', this)">เครื่องเขียน</button>
+                <button class="pill" onclick="filterCategory('เครื่องสำอาง', this)">เครื่องสำอาง</button>
+            </div>
+
+            <div class="product-grid" id="product-grid-container"></div>
+        </div>
+    </div>
+
+    <div id="productDetailModal" class="modal-overlay hidden" onclick="closeModalOnOutsideClick(event, 'productDetailModal')">
+        <div class="modal-content product-detail-modal">
+            <button class="btn-close-modal" onclick="closeProductDetailModal()">✖</button>
+            <div class="detail-flex">
+                <div class="detail-img-container">
+                    <img id="detail-display-img" src="" alt="Product Image">
+                </div>
+                <div class="detail-info">
+                    <div class="detail-cat" id="detail-display-cat">หมวดหมู่</div>
+                    <h2 class="detail-name" id="detail-display-name">ชื่อสินค้า</h2>
+                    <div class="detail-sku" id="detail-display-sku">รหัสสินค้า: XXXXXXXXXXXX</div>
+                    <div class="detail-price-box">
+                        <div>
+                            <div class="detail-price-label">ราคาขาย</div>
+                            <div class="detail-price-value" id="detail-display-price">฿0.00</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="detail-price-label">คงเหลือในสต็อก</div>
+                            <div class="detail-stock-value" id="detail-display-stock">0 ชิ้น</div>
+                        </div>
+                    </div>
+                    <div>
+                        <span style="font-size: 13px; color: #777; margin-right: 10px;">วันหมดอายุ:</span>
+                        <span class="detail-exp" id="detail-display-exp">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../shared/global.js"></script>
+    <script src="products.js"></script>
+</body>
+</html>

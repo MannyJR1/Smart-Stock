@@ -1,0 +1,37 @@
+/* --- หน้า Dashboard Cards --- */
+.cards-container { display: flex; gap: 20px; margin-bottom: 40px; justify-content: center; flex-wrap: wrap; align-items: stretch; }
+
+.card.dashboard-card {
+    border-radius: 20px; padding: 25px 15px 20px; flex: 1; min-width: 180px; max-width: 240px;
+    text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #ffffff;
+}
+
+.card.dashboard-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+.card.dashboard-card .card-title { font-size: 16px; color: #444; font-weight: 600; margin-bottom: 10px; }
+.card.dashboard-card .card-main-number { font-size: 40px; font-weight: 700; color: #2c3e50; line-height: 1; margin-bottom: 5px; }
+.card.dashboard-card .card-subtitle { font-size: 13px; color: #777; margin-bottom: 20px; }
+.card.dashboard-card .card-divider { width: 90%; border: none; border-top: 1px solid #eee; margin: 0 0 15px 0; }
+
+.card.dashboard-card .card-footer-box {
+    background-color: #fcfcfc; border-radius: 12px; padding: 10px; width: 100%; box-sizing: border-box; 
+    display: flex; justify-content: space-between; align-items: center; border: 1px solid #f0f0f0;
+}
+.card.dashboard-card .footer-label { font-size: 12px; color: #666; }
+.card.dashboard-card .footer-value { font-size: 14px; font-weight: bold; }
+
+/* ธีมสีของการ์ดแต่ละใบ */
+.card.theme-primary { background: linear-gradient(180deg, #ffeef5 0%, #ffffff 40%); border: 1px solid #ffeeef; }
+.card.theme-primary .footer-value { color: #ec407a; }
+
+.card.theme-warning { background: linear-gradient(180deg, #fff9e6 0%, #ffffff 40%); border: 1px solid #fff4cc; }
+.card.theme-warning .footer-value { color: #fbc02d; }
+
+.card.theme-orange { background: linear-gradient(180deg, #fff0e6 0%, #ffffff 40%); border: 1px solid #ffe0cc; }
+.card.theme-orange .footer-value { color: #f57c00; }
+
+.card.theme-danger { background: linear-gradient(180deg, #ffebee 0%, #ffffff 40%); border: 1px solid #ffcdd2; }
+.card.theme-danger .footer-value { color: #d32f2f; }
+
+.card.theme-success { background: linear-gradient(180deg, #e8f5e9 0%, #ffffff 40%); border: 1px solid #c8e6c9; }
+.card.theme-success .footer-value { color: #388e3c; }

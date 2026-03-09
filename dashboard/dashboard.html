@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart & Stock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/global.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <div id="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-brand">📦 SMART & STOCK</div>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li class="menu-item active" onclick="window.location.href='dashboard.html'">หน้าหลัก (Dashboard)</li>
+            <li class="menu-item" onclick="window.location.href='../sales/sales.html'">ยอดขาย (Sales)</li>
+            <li class="menu-item" onclick="window.location.href='../movements/movements.html'">ความเคลื่อนไหวสต็อก</li>
+        </ul>
+        
+        <div class="sidebar-toggle" onclick="toggleSidebar()">&lt;</div>
+        
+        <div class="sidebar-profile" onclick="logout()">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <span class="name" id="sidebar-username">Admin User</span>
+                <span class="role">Store Manager</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        <div class="app-section">
+            
+            <div class="dash-header">
+                <div>
+                    <h2>Dashboard (ภาพรวม)</h2>
+                    <p>Smart & Stock System</p>
+                </div>
+                <div class="search-bar-container">
+                    <svg class="search-icon-svg" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" class="search-bar" placeholder="ค้นหาสินค้าจากหน้าหลัก..." oninput="handleSearch(event)">
+                    <div id="dash-dropdown" class="search-dropdown hidden"></div>
+                </div>
+            </div>
+
+            <div class="cards-container">
+                <div class="card dashboard-card theme-primary" onclick="window.location.href='../products/products.html'">
+                    <div class="card-title">สินค้าทั้งหมดในระบบ</div>
+                    <div class="card-main-number" id="dash-total-sku">0</div>
+                    <div class="card-subtitle">รายการ</div>
+                    <hr class="card-divider">
+                    <div class="card-footer-box">
+                        <span class="footer-label">สต็อกรวมทั้งหมด:</span>
+                        <span class="footer-value" id="dash-total-stock">0 ชิ้น</span>
+                    </div>
+                </div>
+
+                <div class="card dashboard-card theme-warning">
+                    <div class="card-title">สินค้าใกล้หมด</div>
+                    <div class="card-main-number" id="dash-low-stock">0</div>
+                    <div class="card-subtitle">รายการ</div>
+                    <hr class="card-divider">
+                    <div class="card-footer-box">
+                        <span class="footer-label">สถานะ:</span>
+                        <span class="footer-value">รอเติมสต็อก</span>
+                    </div>
+                </div>
+
+                <div class="card dashboard-card theme-orange">
+                    <div class="card-title">ใกล้หมดอายุ</div>
+                    <div class="card-main-number" id="dash-expiring">0</div>
+                    <div class="card-subtitle">รายการ</div>
+                    <hr class="card-divider">
+                    <div class="card-footer-box">
+                        <span class="footer-label">สถานะ:</span>
+                        <span class="footer-value">เตรียมจัดการ</span>
+                    </div>
+                </div>
+
+                <div class="card dashboard-card theme-danger">
+                    <div class="card-title">สินค้าหมดอายุ</div>
+                    <div class="card-main-number" id="dash-expired">0</div>
+                    <div class="card-subtitle">รายการ</div>
+                    <hr class="card-divider">
+                    <div class="card-footer-box">
+                        <span class="footer-label">สถานะ:</span>
+                        <span class="footer-value">ต้องนำออก</span>
+                    </div>
+                </div>
+
+                <div class="card dashboard-card theme-success" onclick="window.location.href='../stock/stock.html'">
+                    <div class="card-title">จัดการสต็อก</div>
+                    <div class="card-main-number">➔</div>
+                    <div class="card-subtitle">ไปที่หน้าจัดการ</div>
+                    <hr class="card-divider">
+                    <div class="card-footer-box">
+                        <span class="footer-label">สถานะ:</span>
+                        <span class="footer-value">พร้อมใช้งาน</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header-dark">รายการสินค้าจำหน่ายล่าสุด</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>วัน/เวลา</th>
+                            <th>ชื่อสินค้า</th>
+                            <th>รหัสสินค้า</th>
+                            <th>หมวดหมู่</th>
+                            <th>ราคา</th>
+                            <th>จำหน่าย (ชิ้น)</th>
+                            <th>คงเหลือ</th>
+                            <th>สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dash-table-body">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../shared/global.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

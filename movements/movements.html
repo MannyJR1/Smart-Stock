@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ความเคลื่อนไหว - Smart & Stock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/global.css">
+    <link rel="stylesheet" href="movements.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div id="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-brand">📦 SMART & STOCK</div>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li class="menu-item" onclick="window.location.href='../dashboard/dashboard.html'">หน้าหลัก (Dashboard)</li>
+            <li class="menu-item" onclick="window.location.href='../sales/sales.html'">ยอดขาย (Sales)</li>
+            <li class="menu-item active" onclick="window.location.href='movements.html'">ความเคลื่อนไหวสต็อก</li>
+        </ul>
+        
+        <div class="sidebar-toggle" onclick="toggleSidebar()">&lt;</div>
+        
+        <div class="sidebar-profile" onclick="logout()">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <span class="name" id="sidebar-username">Admin User</span>
+                <span class="role">Store Manager</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        <div class="app-section">
+            <div class="dash-header" style="background: linear-gradient(90deg, #ffb6c1 0%, #ffc0cb 100%);">
+                <div>
+                    <h2>ความเคลื่อนไหวสต็อก (Stock Movements)</h2>
+                    <p>ประวัติการรับเข้าและจ่ายออกสินค้าทั้งหมด</p>
+                </div>
+                <div class="sales-filter-group" id="movements-time-filters">
+                    <button class="sales-filter-btn" onclick="setMovementsFilter('รายวัน', this)">รายวัน</button>
+                    <button class="sales-filter-btn active" onclick="setMovementsFilter('รายเดือน', this)">รายเดือน</button>
+                    <button class="sales-filter-btn" onclick="setMovementsFilter('รายปี', this)">รายปี</button>
+                </div>
+            </div>
+
+            <div class="chart-flex-container">
+                <div class="chart-box">
+                    <h3 style="margin-top: 0; font-size: 16px; color: #333;">ภาพรวมกิจกรรม (<span id="mov-chart-title">รายเดือน</span>)</h3>
+                    <div style="flex-grow: 1; position: relative; min-height: 250px; width: 100%;">
+                        <canvas id="movementsChart"></canvas>
+                    </div>
+                </div>
+                <div class="summary-box">
+                    <div class="summary-card">
+                        <div class="icon-in">↓</div>
+                        <div>
+                            <div class="label">สินค้าเข้า</div>
+                            <div class="val" id="mov-total-in">0</div>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="icon-out">↑</div>
+                        <div>
+                            <div class="label">สินค้าออก</div>
+                            <div class="val" id="mov-total-out">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header-dark" style="background: #ffe6f0; color: #555;">รายการล่าสุด</div>
+                <table>
+                    <thead style="background: #ffe6f0; color: #555;">
+                        <tr>
+                            <th style="border-bottom: 1px solid #ffccdd;">วัน/เวลา</th>
+                            <th style="border-bottom: 1px solid #ffccdd;">รูปภาพ</th>
+                            <th style="border-bottom: 1px solid #ffccdd;">รหัสสินค้า</th>
+                            <th style="border-bottom: 1px solid #ffccdd;">ชื่อสินค้า</th>
+                            <th style="border-bottom: 1px solid #ffccdd;">หมวดหมู่</th>
+                            <th style="border-bottom: 1px solid #ffccdd;">ประเภท</th>
+                            <th style="border-bottom: 1px solid #ffccdd;">จำนวน</th>
+                            <th style="border-bottom: 1px solid #ffccdd;">คงเหลือ</th>
+                            <th style="border-bottom: 1px solid #ffccdd;">หมายเหตุ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="movements-table-body" style="background: #fff;"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../shared/global.js"></script>
+    <script src="movements.js"></script>
+</body>
+</html>

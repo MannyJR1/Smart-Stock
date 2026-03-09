@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>จัดการสต็อก - Smart & Stock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/global.css">
+    <link rel="stylesheet" href="stock.css">
+</head>
+<body>
+
+   <div id="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-brand">📦 SMART & STOCK</div>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li class="menu-item" onclick="window.location.href='../dashboard/dashboard.html'">หน้าหลัก (Dashboard)</li>
+            <li class="menu-item" onclick="window.location.href='../sales/sales.html'">ยอดขาย (Sales)</li>
+            <li class="menu-item" onclick="window.location.href='../movements/movements.html'">ความเคลื่อนไหวสต็อก</li>
+        </ul>
+        
+        <div class="sidebar-toggle" onclick="toggleSidebar()">&lt;</div>
+        
+        <div class="sidebar-profile" onclick="logout()">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <span class="name" id="sidebar-username">Admin User</span>
+                <span class="role">Store Manager</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        <div class="app-section">
+            <div class="dash-header" style="background: linear-gradient(90deg, #a18cd1 0%, #fbc2eb 100%);">
+                <div>
+                    <h2>จัดการสต็อก (Stock Management)</h2>
+                    <p>เพิ่ม/ลด และแก้ไขข้อมูลสินค้าในระบบ</p>
+                </div>
+                
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div class="search-bar-container">
+                        <svg class="search-icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" id="search-stock" class="search-bar" placeholder="ค้นหาเพื่อจำหน่าย (ชื่อ/รหัส)..." oninput="handleSearchStock(event)">
+                        <div id="stock-dropdown" class="search-dropdown hidden"></div>
+                    </div>
+                    <button class="btn" style="background-color: #555; width:auto;" onclick="window.location.href='../dashboard/dashboard.html'">กลับหน้าหลัก</button>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn btn-info btn-small" onclick="openAddStockModal()" style="font-size:14px; padding: 8px 20px;">+ เพิ่มสต็อกเข้า</button>
+                <button class="btn btn-save btn-small" onclick="openAddProductModal()" style="font-size:14px; padding: 8px 20px;">+ เพิ่มสินค้าใหม่</button>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header-dark">รายการสินค้าในสต็อก</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>วัน/เวลา</th>
+                            <th>รูปภาพ</th>
+                            <th>ชื่อสินค้า</th>
+                            <th>รหัสสินค้า</th>
+                            <th>หมวดหมู่</th>
+                            <th>ราคา</th>
+                            <th>คงเหลือ</th>
+                            <th>สถานะ</th>
+                            <th>ผู้ทำรายการ</th>
+                            <th>จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="editable-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="addProductModal" class="modal-overlay hidden" onclick="closeModalOnOutsideClick(event, 'addProductModal')">
+        <div class="modal-content">
+            <button class="btn-close-modal" onclick="closeAddProductModal()">✖</button>
+            <div class="modal-body" style="margin-top: 15px;">
+                <div class="modal-left">
+                    <div class="input-group">
+                        <label>รูปภาพสินค้า</label>
+                        <div class="image-upload-box" onclick="document.getElementById('modal-prod-image-input').click()">
+                            <input type="file" id="modal-prod-image-input" accept="image/*" class="hidden" onchange="previewImage(event)">
+                            <img id="modal-prod-image-preview" src="" style="display:none; max-width: 100%; max-height: 100%; object-fit: contain;">
+                            <div id="modal-prod-image-placeholder">
+                                <div style="font-size: 30px; color: #aaa;">📷</div><p style="margin: 0; font-size: 14px;">คลิกเพื่ออัปโหลดรูป</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-right">
+                    <div class="input-group">
+                        <label>ชื่อสินค้า</label>
+                        <input type="text" id="modal-prod-name" placeholder="ระบุชื่อสินค้า">
+                    </div>
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label>รหัสสินค้า (SKU)</label>
+                            <input type="text" id="modal-prod-sku" disabled style="color: #888;">
+                        </div>
+                        <div class="input-group">
+                            <label>หมวดหมู่</label>
+                            <select id="modal-prod-cat">
+                                <option>ของใช้ทั่วไป</option>
+                                <option>เครื่องเขียน</option>
+                                <option>เครื่องสำอาง</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label>ราคาขาย</label>
+                            <input type="number" id="modal-prod-price" placeholder="0.00">
+                        </div>
+                        <div class="input-group">
+                            <label>จำนวนสต็อกตั้งต้น</label>
+                            <input type="number" id="modal-prod-stock" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>วันหมดอายุ</label>
+                        <input type="date" id="modal-prod-exp">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="closeAddProductModal()">ยกเลิก</button>
+                <button class="btn btn-save" onclick="saveNewProduct()">บันทึกข้อมูลสินค้า</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addStockModal" class="modal-overlay hidden" onclick="closeModalOnOutsideClick(event, 'addStockModal')">
+        <div class="modal-content" style="width: 400px;">
+            <button class="btn-close-modal" onclick="closeAddStockModal()">✖</button>
+            <h3 style="margin-top:0; color:#4da6ff;">+ เพิ่มสต็อกเข้า</h3>
+            <div class="input-group">
+                <label>เลือกสินค้า</label>
+                <select id="stock-add-sku"></select>
+            </div>
+            <div class="input-group">
+                <label>จำนวนที่ต้องการเพิ่ม (ชิ้น)</label>
+                <input type="number" id="stock-add-qty" min="1">
+            </div>
+            <div class="modal-footer" style="margin-top: 25px;">
+                <button class="btn btn-cancel" onclick="closeAddStockModal()">ยกเลิก</button>
+                <button class="btn btn-info" onclick="saveAddedStock()">บันทึกสต็อก</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="recordSaleModal" class="modal-overlay hidden" onclick="closeModalOnOutsideClick(event, 'recordSaleModal')">
+        <div class="modal-content" style="width: 400px;">
+            <button class="btn-close-modal" onclick="closeRecordSaleModal()">✖</button>
+            <h3 style="margin-top:0; color:#0da15c;">บันทึกการขายสินค้า</h3>
+            <p id="record-sale-desc" style="font-size: 14px; color: #555; font-weight: 500;"></p>
+            <div class="input-group">
+                <label>จำนวนที่ขาย (ชิ้น)</label>
+                <input type="number" id="record-sale-qty" min="1">
+                <input type="hidden" id="record-sale-sku"> 
+            </div>
+            <div class="modal-footer" style="margin-top: 25px;">
+                <button class="btn btn-cancel" onclick="closeRecordSaleModal()">ยกเลิก</button>
+                <button class="btn btn-save" onclick="confirmRecordSale()">บันทึกยอดขาย</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="sellStockModal" class="modal-overlay hidden" onclick="closeModalOnOutsideClick(event, 'sellStockModal')">
+        <div class="modal-content" style="width: 400px;">
+            <button class="btn-close-modal" onclick="closeSellStockModal()">✖</button>
+            <h3 style="margin-top:0; color:#ff5e5e;">ลดสต็อก</h3>
+            <p id="sell-modal-desc" style="font-size: 14px; color: #555; font-weight: 500;"></p>
+            <div class="input-group">
+                <label>จำนวนที่ลด (ชิ้น)</label>
+                <input type="number" id="sell-qty" min="1">
+                <input type="hidden" id="sell-sku"> 
+            </div>
+            <div class="input-group">
+                <label>หมายเหตุ</label>
+                <input type="text" id="sell-remark" placeholder="เช่น ชำรุด, นำไปใช้เอง">
+            </div>
+            <div class="modal-footer" style="margin-top: 25px;">
+                <button class="btn btn-cancel" onclick="closeSellStockModal()">ยกเลิก</button>
+                <button class="btn btn-danger" onclick="confirmSellStock()">บันทึกการลดสต็อก</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../shared/global.js"></script>
+    <script src="stock.js"></script>
+</body>
+</html>

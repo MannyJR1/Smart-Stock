@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ยอดขาย - Smart & Stock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared/global.css">
+    <link rel="stylesheet" href="sales.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div id="sidebar">
+        <div class="sidebar-top">
+            <div class="sidebar-brand">📦 SMART & STOCK</div>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li class="menu-item" onclick="window.location.href='../dashboard/dashboard.html'">หน้าหลัก (Dashboard)</li>
+            <li class="menu-item active" onclick="window.location.href='sales.html'">ยอดขาย (Sales)</li>
+            <li class="menu-item" onclick="window.location.href='../movements/movements.html'">ความเคลื่อนไหวสต็อก</li>
+        </ul>
+        
+        <div class="sidebar-toggle" onclick="toggleSidebar()">&lt;</div>
+        
+        <div class="sidebar-profile" onclick="logout()">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <span class="name" id="sidebar-username">Admin User</span>
+                <span class="role">Store Manager</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        <div class="app-section">
+            <div class="dash-header" style="background: linear-gradient(90deg, #84fab0 0%, #8fd3f4 100%);">
+                <div>
+                    <h2>แผงควบคุมยอดขาย (Sales Dashboard)</h2>
+                    <p>สรุปข้อมูลการจำหน่ายและรายได้</p>
+                </div>
+                <div class="sales-filter-group" id="sales-time-filters">
+                    <button class="sales-filter-btn active" onclick="setSalesFilter('รายวัน', this)">รายวัน</button>
+                    <button class="sales-filter-btn" onclick="setSalesFilter('รายเดือน', this)">รายเดือน</button>
+                    <button class="sales-filter-btn" onclick="setSalesFilter('รายปี', this)">รายปี</button>
+                </div>
+            </div>
+
+            <div class="cards-container">
+                <div class="card theme-success">
+                    <div class="card-title">ยอดขายรวม</div>
+                    <div class="card-main-number" id="sales-total-revenue" style="color: #388e3c; font-size: 36px;">฿0</div>
+                    <div class="card-subtitle">บาท</div>
+                </div>
+                <div class="card theme-primary">
+                    <div class="card-title">จำนวนสินค้าที่จำหน่าย</div>
+                    <div class="card-main-number" id="sales-total-items">0</div>
+                    <div class="card-subtitle">ชิ้น</div>
+                </div>
+                <div class="card theme-orange">
+                    <div class="card-title">จำนวนรายการขาย</div>
+                    <div class="card-main-number" id="sales-total-transactions">0</div>
+                    <div class="card-subtitle">รายการ</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 style="margin-top: 0; color: #444; margin-bottom: 20px;">สถิติยอดขาย (<span id="chart-title-text">รายวัน</span>)</h3>
+                <div style="position: relative; height: 300px; width: 100%;">
+                    <canvas id="salesChart"></canvas>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header-dark">ประวัติการขายทั้งหมด (เรียงตามล่าสุด)</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>วัน/เวลาที่ทำรายการ</th>
+                            <th>ชื่อสินค้า</th>
+                            <th>รหัสสินค้า</th>
+                            <th>ราคาต่อชิ้น</th>
+                            <th>จำนวน (ชิ้น)</th>
+                            <th>ยอดรวม (บาท)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sales-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../shared/global.js"></script>
+    <script src="sales.js"></script>
+</body>
+</html>
