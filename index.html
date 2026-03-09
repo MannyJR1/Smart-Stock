@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart & Stock - System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <div id="auth-section">
+        <div class="login-card" id="form-login">
+            <h1>SMART & STOCK</h1>
+            <form onsubmit="enterDashboard(event)">
+                <div class="input-group">
+                    <label>👤 Username *</label>
+                    <input type="text" id="login-username" placeholder="กรุณากรอกชื่อผู้ใช้งาน" required>
+                </div>
+                <div class="input-group">
+                    <label>🔒 Password *</label>
+                    <input type="password" id="login-password" placeholder="กรุณากรอกรหัสผ่าน" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn btn-login">Login</button>
+                </div>
+            </form>
+            <button class="btn btn-toggle" onclick="toggleAuthMode()">ยังไม่มีบัญชี? สมัครสมาชิก (Sign up)</button>
+        </div>
+
+        <div class="login-card hidden" id="form-signup">
+            <h1>SMART & STOCK</h1>
+            <form id="register-form" onsubmit="handleSignup(event)">
+                <div class="input-group">
+                    <label>👤 Username *</label>
+                    <input type="text" id="reg-username" placeholder="ตั้งชื่อผู้ใช้งาน" required>
+                </div>
+                <div class="input-group">
+                    <label>📧 Email (Gmail) *</label>
+                    <input type="email" id="reg-email" placeholder="ตัวอย่าง: name@gmail.com" required>
+                </div>
+                <div class="input-group">
+                    <label>🪪 เลขบัตรประชาชน 13 หลัก *</label>
+                    <input type="text" id="reg-idcard" pattern="\d{13}" maxlength="13" placeholder="กรุณากรอกเลข 13 หลักให้ครบถ้วน" required>
+                </div>
+                <div class="input-group">
+                    <label>🔒 Password *</label>
+                    <input type="password" id="reg-password" placeholder="ตั้งรหัสผ่าน" required>
+                </div>
+                <div class="input-group">
+                    <label>🔒 Confirm Password *</label>
+                    <input type="password" id="reg-confirm-password" placeholder="ยืนยันรหัสผ่าน" required>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="btn btn-signup">Sign up</button>
+                </div>
+            </form>
+            <button class="btn btn-toggle" onclick="toggleAuthMode()">มีบัญชีอยู่แล้ว? เข้าสู่ระบบ (Login)</button>
+        </div>
+    </div>
+
+    <script src="shared/global.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+/* --- ตั้งค่าเริ่มต้น --- */
+body {
+    font-family: 'Kanit', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+}
+
+.hidden { display: none !important; }
+
+/* --- ส่วนหน้า Login & Signup --- */
+#auth-section {
+    display: flex; justify-content: center; align-items: center; min-height: 100vh;
+    padding: 20px; box-sizing: border-box; background-color: #000;
+}
+
+.login-card {
+    background-color: #fff0f5; padding: 40px 50px; border-radius: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5); text-align: center; width: 350px; position: relative;
+}
+
+.login-card h1 { color: #ff8fb3; font-size: 24px; margin-bottom: 25px; font-weight: 600; }
+.input-group { margin-bottom: 15px; text-align: left; }
+.input-group label { display: block; font-size: 13px; color: #555; margin-bottom: 5px; font-weight: 500; }
+.input-group input {
+    width: 100%; padding: 10px; border: 1px solid #ffccdd; border-radius: 8px; 
+    box-sizing: border-box; font-family: 'Kanit', sans-serif; outline: none;
+}
+.input-group input:focus { border-color: #ff8fb3; }
+
+.button-group { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+.btn {
+    padding: 10px 25px; border: none; border-radius: 20px; cursor: pointer;
+    font-family: 'Kanit', sans-serif; font-weight: 600; color: white; transition: 0.3s; width: 100%;
+}
+.btn-login { background-color: #ff4d85; }
+.btn-login:hover { background-color: #e63971; }
+.btn-signup { background-color: #ffb3c6; }
+.btn-signup:hover { background-color: #ffa3b8; }
+.btn-toggle { background: none; color: #ff4d85; margin-top: 15px; font-size: 12px; font-weight: 500; }
